@@ -104,6 +104,8 @@
                     "öl" "\\lambda"
                     "öm" "\\mu"
                     "ös" "\\sigma"
+                    "ihat" "\\hat{\\imath}"
+                    "jhat" "\\hat{\\jmath}"
                     "On" "O(n)"
                     "O1" "O(1)"
                     "Olog" "O(\\log n)"
@@ -111,26 +113,29 @@
                     ;; bind to functions!
                     "mrm" (lambda () (interactive)
                             (yas-expand-snippet "\\text{ $1 }$0"))
+
+                    "sq"  (lambda () (interactive)
+                            (yas-expand-snippet "\\sqrt{$1}$0")(laas--shut-up-smartparens))
                     "Sum" (lambda () (interactive)
                             (yas-expand-snippet "\\sum_{$1}^{$2} $0")(laas--shut-up-smartparens))
                     "Span" (lambda () (interactive)
                              (yas-expand-snippet "\\Span($1)$0"))
                     ;; add accent snippets
                     :cond #'laas-object-on-left-condition
-                    "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt"))))
+                    "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt"))
+                    "vec" (lambda () (interactive) (laas-wrap-previous-object "vec"))))
+
+
+(setq TeX-save-query nil
+      TeX-show-compilation t
+      TeX-command-extra-options "-shell-escape")
+(setq +latex-viewers '(pdf-tools evince zathura okular skim sumatrapdf))
+
+(after! latex
+  (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t)))
 
 
 
- (setq org-latex-src-block-backend 'minted
-       org-latex-packages-alist '(("" "minted"))
-       org-latex-pdf-process
-       '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-         ))
-
- (setq org-latex-minted-options '(("breaklines" "true")
-                                  ("breakanywhere" "true")))
 (setq org-html-doctype "html5")
 
 
