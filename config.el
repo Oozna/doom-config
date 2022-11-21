@@ -95,6 +95,8 @@
                            (yas-expand-snippet "\\\\( $1 \\\\)$0"))
                     "dm" (lambda () (interactive)
                            (yas-expand-snippet "\\[ $1 \\]\n$0"))
+                    "aaln" (lambda () (interactive)
+                             (yas-expand-snippet "\\begin{align}\n$1\n\\end{align}"))
                     ;; set condition!
                     :cond #'texmathp ; expand only while in math
                     "supp" "\\supp"
@@ -102,8 +104,13 @@
                     "pi" "\\pi"
                     "mu" "\\mu"
                     "öl" "\\lambda"
+                    "öa" "\\alpha"
+                    "öb" "\\beta"
+                    "ang" "\\angle"
                     "öm" "\\mu"
                     "ös" "\\sigma"
+                    "öt" "\\theta"
+                    "deg" "^\\circ"
                     "ihat" "\\hat{\\imath}"
                     "jhat" "\\hat{\\jmath}"
                     "On" "O(n)"
@@ -113,6 +120,10 @@
                     ;; bind to functions!
                     "mrm" (lambda () (interactive)
                             (yas-expand-snippet "\\text{ $1 }$0"))
+                    "abs" (lambda () (interactive)
+                            (yas-expand-snippet "\\left|$1\\right| $0"))
+                    "lrp" (lambda () (interactive)
+                            (yas-expand-snippet "\\left($1\\right) $0"))
 
                     "sq"  (lambda () (interactive)
                             (yas-expand-snippet "\\sqrt{$1}$0")(laas--shut-up-smartparens))
@@ -120,10 +131,12 @@
                             (yas-expand-snippet "\\sum_{$1}^{$2} $0")(laas--shut-up-smartparens))
                     "Span" (lambda () (interactive)
                              (yas-expand-snippet "\\Span($1)$0"))
+
                     ;; add accent snippets
                     :cond #'laas-object-on-left-condition
                     "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt"))
                     "vec" (lambda () (interactive) (laas-wrap-previous-object "vec"))))
+
 
 
 (setq TeX-save-query nil

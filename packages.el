@@ -56,3 +56,5 @@
 
 (package! cdlatex)
 (package! visual-fill-column)
+(package! haskell-mode)
+(package! lsp-haskell)
