@@ -96,7 +96,7 @@
                     "dm" (lambda () (interactive)
                            (yas-expand-snippet "\\[ $1 \\]\n$0"))
                     "aaln" (lambda () (interactive)
-                             (yas-expand-snippet "\\begin{align}\n$1\n\\end{align}"))
+                             (yas-expand-snippet "\\begin{align*}\n$1\n\\end{align*}"))
                     ;; set condition!
                     :cond #'texmathp ; expand only while in math
                     "supp" "\\supp"
@@ -108,6 +108,7 @@
                     "öb" "\\beta"
                     "ang" "\\angle"
                     "öm" "\\mu"
+                    "app" "\\approx"
                     "ös" "\\sigma"
                     "öt" "\\theta"
                     "deg" "^\\circ"
@@ -125,6 +126,10 @@
                     "lrp" (lambda () (interactive)
                             (yas-expand-snippet "\\left($1\\right) $0"))
 
+                    "SI"  (lambda () (interactive)
+                            (yas-expand-snippet "\\SI{$1}{$2}$0")(laas--shut-up-smartparens))
+                    "si"  (lambda () (interactive)
+                            (yas-expand-snippet "\\si{$1}$0")(laas--shut-up-smartparens))
                     "sq"  (lambda () (interactive)
                             (yas-expand-snippet "\\sqrt{$1}$0")(laas--shut-up-smartparens))
                     "Sum" (lambda () (interactive)
@@ -189,7 +194,7 @@
 (use-package org
   :hook (org-mode . ej/org-mode-setup)
   :config
-  (setq org-ellipsis " ▾")
+  (setq org-ellipsissis " ▾")
   (efs/org-font-setup))
 
 
