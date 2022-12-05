@@ -33,7 +33,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-palenight)
+(setq doom-theme 'doom-shades-of-purple)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -94,12 +94,13 @@
                     "mk" (lambda () (interactive)
                            (yas-expand-snippet "\\\\( $1 \\\\)$0"))
                     "dm" (lambda () (interactive)
-                           (yas-expand-snippet "\\[ $1 \\]\n$0"))
+                           (yas-expand-snippet "\\[ $0 \\]"))
                     "aaln" (lambda () (interactive)
-                             (yas-expand-snippet "\\begin{align*}\n$1\n\\end{align*}"))
+                             (yas-expand-snippet "\\begin{align*}\n$0\n\\end{align*}"))
                     ;; set condition!
                     :cond #'texmathp ; expand only while in math
                     "supp" "\\supp"
+                    "quad" " \\quad "
                     "qs" "^2"
                     "pi" "\\pi"
                     "mu" "\\mu"
