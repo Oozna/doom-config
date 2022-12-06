@@ -22,7 +22,7 @@
 ;; accept. For example:
 ;;
 (setq doom-font (font-spec :family "Fira Code Retina" :size 16 :weight 'normal)
-     doom-variable-pitch-font (font-spec :family "Cantarell" :size 18 ))
+      doom-variable-pitch-font (font-spec :family "Cantarell" :size 18 ))
 
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
@@ -81,6 +81,24 @@
 ;; they are implemented.
 
 
+(setq-default abbrev-mode t)
+(clear-abbrev-table global-abbrev-table)
+(define-abbrev-table 'global-abbrev-table
+  '(
+    ;; Annoying ' words,
+    ("cant" "cannot")
+    ("dont" "do not")
+    ("im" "I am")
+    ("ill" "I will")
+
+    ;; Real abbreviations
+    ("cba" "cannot be asked")
+    ("afaik" "as far as I know")
+    ("omw" "on my way")
+    ))
+
+
+
 (add-hook 'org-mode-hook #'turn-on-org-cdlatex)
 
 (use-package laas
@@ -89,59 +107,59 @@
   :config ; do whatever here
   (setq laas-enable-auto-space nil)
   (aas-set-snippets 'laas-mode
-                    :cond (lambda ()
-                            (not (texmathp)))
-                    "mk" (lambda () (interactive)
-                           (yas-expand-snippet "\\\\( $1 \\\\)$0"))
-                    "dm" (lambda () (interactive)
-                           (yas-expand-snippet "\\[ $0 \\]"))
-                    "aaln" (lambda () (interactive)
-                             (yas-expand-snippet "\\begin{align*}\n$0\n\\end{align*}"))
-                    ;; set condition!
-                    :cond #'texmathp ; expand only while in math
-                    "supp" "\\supp"
-                    "quad" " \\quad "
-                    "qs" "^2"
-                    "pi" "\\pi"
-                    "mu" "\\mu"
-                    "öl" "\\lambda"
-                    "öa" "\\alpha"
-                    "öb" "\\beta"
-                    "ang" "\\angle"
-                    "öm" "\\mu"
-                    "app" "\\approx"
-                    "ös" "\\sigma"
-                    "öt" "\\theta"
-                    "deg" "^\\circ"
-                    "ihat" "\\hat{\\imath}"
-                    "jhat" "\\hat{\\jmath}"
-                    "On" "O(n)"
-                    "O1" "O(1)"
-                    "Olog" "O(\\log n)"
-                    "Olon" "O(n \\log n)"
-                    ;; bind to functions!
-                    "mrm" (lambda () (interactive)
-                            (yas-expand-snippet "\\text{ $1 }$0"))
-                    "abs" (lambda () (interactive)
-                            (yas-expand-snippet "\\left|$1\\right| $0"))
-                    "lrp" (lambda () (interactive)
-                            (yas-expand-snippet "\\left($1\\right) $0"))
+    :cond (lambda ()
+            (not (texmathp)))
+    "mk" (lambda () (interactive)
+           (yas-expand-snippet "\\\\( $1 \\\\)$0"))
+    "dm" (lambda () (interactive)
+           (yas-expand-snippet "\\[ $0 \\]"))
+    "aaln" (lambda () (interactive)
+             (yas-expand-snippet "\\begin{align*}\n$0\n\\end{align*}"))
+    ;; set condition!
+    :cond #'texmathp ; expand only while in math
+    "supp" "\\supp"
+    "quad" " \\quad "
+    "qs" "^2"
+    "pi" "\\pi"
+    "mu" "\\mu"
+    "öl" "\\lambda"
+    "öa" "\\alpha"
+    "öb" "\\beta"
+    "ang" "\\angle"
+    "öm" "\\mu"
+    "app" "\\approx"
+    "ös" "\\sigma"
+    "öt" "\\theta"
+    "deg" "^\\circ"
+    "ihat" "\\hat{\\imath}"
+    "jhat" "\\hat{\\jmath}"
+    "On" "O(n)"
+    "O1" "O(1)"
+    "Olog" "O(\\log n)"
+    "Olon" "O(n \\log n)"
+    ;; bind to functions!
+    "mrm" (lambda () (interactive)
+            (yas-expand-snippet "\\text{ $1 }$0"))
+    "abs" (lambda () (interactive)
+            (yas-expand-snippet "\\left|$1\\right| $0"))
+    "lrp" (lambda () (interactive)
+            (yas-expand-snippet "\\left($1\\right) $0"))
 
-                    "SI"  (lambda () (interactive)
-                            (yas-expand-snippet "\\SI{$1}{$2}$0")(laas--shut-up-smartparens))
-                    "si"  (lambda () (interactive)
-                            (yas-expand-snippet "\\si{$1}$0")(laas--shut-up-smartparens))
-                    "sq"  (lambda () (interactive)
-                            (yas-expand-snippet "\\sqrt{$1}$0")(laas--shut-up-smartparens))
-                    "Sum" (lambda () (interactive)
-                            (yas-expand-snippet "\\sum_{$1}^{$2} $0")(laas--shut-up-smartparens))
-                    "Span" (lambda () (interactive)
-                             (yas-expand-snippet "\\Span($1)$0"))
+    "SI"  (lambda () (interactive)
+            (yas-expand-snippet "\\SI{$1}{$2}$0")(laas--shut-up-smartparens))
+    "si"  (lambda () (interactive)
+            (yas-expand-snippet "\\si{$1}$0")(laas--shut-up-smartparens))
+    "sq"  (lambda () (interactive)
+            (yas-expand-snippet "\\sqrt{$1}$0")(laas--shut-up-smartparens))
+    "Sum" (lambda () (interactive)
+            (yas-expand-snippet "\\sum_{$1}^{$2} $0")(laas--shut-up-smartparens))
+    "Span" (lambda () (interactive)
+             (yas-expand-snippet "\\Span($1)$0"))
 
-                    ;; add accent snippets
-                    :cond #'laas-object-on-left-condition
-                    "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt"))
-                    "vec" (lambda () (interactive) (laas-wrap-previous-object "vec"))))
+    ;; add accent snippets
+    :cond #'laas-object-on-left-condition
+    "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt"))
+    "vec" (lambda () (interactive) (laas-wrap-previous-object "vec"))))
 
 
 
@@ -206,14 +224,14 @@
 
 
 (require 'visual-fill-column)
-        (add-hook 'org-mode-hook (lambda() (ej/org-mode-visual-fill)))
+(add-hook 'org-mode-hook (lambda() (ej/org-mode-visual-fill)))
 (require 'org-bullets)
-        (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
 (use-package dired
   :commands (dired dired-jump)
   :bind (("C-x C-j". dired-jump))
   :config
   (evil-collection-define-key 'normal 'dired-mode-map
-     "h" 'dired-up-directory
-     "l" 'dired-find-file))
+    "h" 'dired-up-directory
+    "l" 'dired-find-file))
